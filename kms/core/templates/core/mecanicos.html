@@ -1,0 +1,86 @@
+<!-- {% load static %} -->
+
+<section>
+
+    <div class="container marketing">
+
+        <div class="row">
+            {% for val in listaMecanico %}
+
+            <div class="col-lg-4">
+                <img class="imagen-index bd-placeholder-img rounded-circle" src="{{val.fotoMecanico}}" alt="" width="140" height="140">
+                <h2>{{val.nombreMecanico}}</h2>
+                <p>{{val.experienciaMecanico}}</p>
+                <p><a class="btn btn-secondary" href="#" data-bs-target="#trabao{{val.idMecanico}}" data-bs-toggle="modal">Ver trabajos &raquo;</a></p>
+            </div>
+            {% endfor %}
+
+        
+        </div>
+    </div>
+
+</section> 
+<!-- <div class="col-lg-4">
+    <img class="imagen-index bd-placeholder-img rounded-circle" src="https://sergioescobar.cl/wp-content/uploads/2021/01/Mecanicos-certificados-en-nuestras-marcas.jpg" alt="" width="140" height="140">
+    
+    <h2>Pedro Ortega</h2>
+    <p>Con 9 años trabajando para KMS, Pedro se encarga de las operaciones que aseguren el funcionamiento de las cajas de cambio y sistemas de alimentación de automóviles</p>
+    <p><a class="btn btn-secondary" href="#" data-bs-target="#mec2" data-bs-toggle="modal">Ver trabajos &raquo;</a></p>
+</div>
+<div class="col-lg-4">
+    <img class="imagen-index bd-placeholder-img rounded-circle" src="https://image.freepik.com/foto-gratis/composicion-moderna-mecanico-automoviles_23-2147881912.jpg" alt="" width="140" height="140">
+
+    <h2>Omar Sarmiento</h2>
+    <p>Con 8 años en KMS se encarga de diagnóstico y reparación integral de los sistemas de suspensión y dirección.</p>
+    <p><a class="btn btn-secondary" href="#" data-bs-target="#mec3" data-bs-toggle="modal">Ver trabajos &raquo;</a></p>
+</div> -->
+<!-- Sección de modales para su respectivo mecánico -->
+{% for mec in listaMecanico %}
+    <div class="modal fade" id="trabao{{mec.idMecanico}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Trabajos de {{mec.nombreMecanico}}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <center>
+                        <div class="avatar-big">
+                            <img src="{{mec.fotoMecanico}}" name="aboutme" width="140" height="140" class="avatar-img rounded-circle"></a>
+                        </div>
+                    <h3 class="media-heading">{{mec.nombreMecanico}}</h3>
+                    <span><strong>Especialización:</strong></span>
+                        <span class="label label-info">{{mec.especializacionMecanico}}</span>
+                    </center>
+                    <hr>
+                    <center>
+                        
+                    {% for trab in listaTrabajo %}
+                        {% if trab.idMecanico.idMecanico == mec.idMecanico %}
+                            <p class="text-left" ><strong>Trabajo</strong><br>
+                                Diagnóstico: {{trab.diagnostico}} </p>
+                                <p>Fecha: {{trab.fecha}} </p>
+                                <p>Lista de materiales utilizados: {{trab.materiales}}</p>
+                                <p>Trabajo realizado: {{trab.trabajoRealizado}} </p>
+                            <br>
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <!-- <p class="text-left" ><strong>Trabajo 2</strong><br>
+                    Diagnóstico: Problemas en circuito general de carga del automovil </p>
+                    <p>Fecha: 07-06-2020 </p>
+                    <p>Lista de materiales utilizados: Multímetro dígital </p>
+                    <p>Etc: Se realiza la reparación de circuito de carga con éxito. </p>
+                <br> -->
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Listo   </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

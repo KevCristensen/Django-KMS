@@ -1,0 +1,176 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <p>
+      <div class="form-check-inline form-switch">
+        <input class="form-check-input" name="a" type="checkbox" id="flexSwitchCheckChecked">
+        <label class="form-check-label" for="flexSwitchCheckChecked">#</label>
+      </div>
+      <div class="form-check-inline form-switch">
+        <input class="form-check-input" name="nombre" type="checkbox" id="flexSwitchCheckChecked2" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked2">Nombre</label>
+      </div>
+      <div class="form-check-inline form-switch">
+        <input class="form-check-input" name="correo" type="checkbox" id="flexSwitchCheckChecked3">
+        <label class="form-check-label" for="flexSwitchCheckChecked3">Correo</label>
+      </div>
+      <div class="form-check-inline form-switch">
+        <input class="form-check-input" name="codigo" type="checkbox" id="flexSwitchCheckChecked4">
+        <label class="form-check-label" for="flexSwitchCheckChecked4">Código</label>
+      </div>
+      <div class="form-check-inline form-switch">
+        <input class="form-check-input" name="fecha" type="checkbox" id="flexSwitchCheckChecked5" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked5">Fecha</label>
+      </div>
+    </p>
+
+    
+  
+    <table class="table table-dark">
+      <thead>
+          
+      </thead>
+      <tbody>
+
+        <tr class="table-active">
+          <th class="a">#</th>
+          <th colspan="2" class="nombre">Nombre</th>
+          <th class="correo">Correo</th>
+          <th class="codigo">Código de cliente</th>
+          <th class="fecha">Fecha</th>
+        </tr>
+        {% for hor in listaHorario %}
+
+        <tr>
+          <td class="a">{{hor.idHorario}}</td>
+          <td colspan="2" class="nombre">{{hor.nombre}}</td>
+          <td class="correo">{{hor.correo}}</td>
+          <td class="codigo">{{hor.codigo}}</td>
+          <td class="fecha">{{hor.fecha}}</td>
+        </tr>
+
+        {% endfor %}
+        <!-- <tr>
+          <td class="a">2</td>
+          <td colspan="2" class="nombre">Pedro Martinez</td>
+          <td class="correo">pe.martinez@email.com</td>
+          <td class="codigo">125894-5</td>
+          <td class="fecha">04-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">3</td>
+          <td colspan="2" class="nombre">Sebastián Galáz</td>
+          <td class="correo" >galazseb@email.com</td>
+          <td class="codigo">752395-4</td>
+          <td class="fecha">05-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">4</td>
+          <td colspan="2" class="nombre">Karla Nuñez</td>
+          <td class="correo">knuñez@email.com</td>
+          <td class="codigo">741258-9</td>
+          <td class="fecha">10-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">5</td>
+          <td colspan="2" class="nombre">Bárbara Garrido</td>
+          <td class="correo">bagarrido@email.com</td>
+          <td class="codigo">784596-2</td>
+          <td class="fecha">14-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">6</td>
+          <td colspan="2" class="nombre">Andrea Abarca</td>
+          <td class="correo">abarcandrea@email.com</td>
+          <td class="codigo">123985-4</td>
+          <td class="fecha">25-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">7</td>
+          <td colspan="2" class="nombre">Alexis Torres</td>
+          <td class="correo">alex.torres@email.com</td>
+          <td class="codigo">639852-7</td>
+          <td class="fecha">28-01-2021</td>
+        </tr>
+        <tr>
+          <td class="a">8</td>
+          <td colspan="2" class="nombre">Antonio Parra</td>
+          <td class="correo">parraant@email.com</td>
+          <td class="codigo">459213-4</td>
+          <td class="fecha">02-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">9</td>
+          <td colspan="2" class="nombre">Constanza Robles</td>
+          <td class="correo">c.robles@email.com</td>
+          <td class="codigo">752963-1</td>
+          <td class="fecha">05-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">10</td>
+          <td colspan="2" class="nombre">Daniela Gómez</td>
+          <td class="correo">dagomez@email.com</td>
+          <td class="codigo">742963-5</td>
+          <td class="fecha">10-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">11</td>
+          <td colspan="2" class="nombre">Jorge Verdugo</td>
+          <td class="correo">vjorge@email.com</td>
+          <td class="codigo">752369-8</td>
+          <td class="fecha">16-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">12</td>
+          <td colspan="2" class="nombre">Felix Aguilera</td>
+          <td class="correo">fe.aguilera@email.com</td>
+          <td class="codigo">456932-1</td>
+          <td class="fecha">18-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">13</td>
+          <td colspan="2" class="nombre">Felipe Araya</td>
+          <td class="correo">feli.araya@email.com</td>
+          <td class="codigo">789426-5</td>
+          <td class="fecha">20-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">14</td>
+          <td colspan="2" class="nombre">Karina Herrera</td>
+          <td class="correo">kari.he@email.com</td>
+          <td class="codigo">123456-4</td>
+          <td class="fecha">23-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">15</td>
+          <td colspan="2" class="nombre">Giselle Sarmiento</td>
+          <td class="correo">sarmientogi@email.com</td>
+          <td class="codigo">125843-9</td>
+          <td class="fecha">26-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">16</td>
+          <td colspan="2" class="nombre">Diego Jara</td>
+          <td class="correo">jara.dieg@email.com</td>
+          <td class="codigo">759218-4</td>
+          <td class="fecha">28-02-2021</td>
+        </tr>
+        <tr>
+          <td class="a">17</td>
+          <td colspan="2" class="nombre">Claudio Inostroza</td>
+          <td class="correo">in.claudio@email.com</td>
+          <td class="codigo">852036-7</td>
+          <td class="fecha">05-03-2021</td>
+        </tr>
+        <tr>
+          <td class="a">18</td>
+          <td colspan="2" class="nombre">Patricio Bustos</td>
+          <td class="correo">bustospa@email.com</td>
+          <td class="codigo">452935-5</td>
+          <td class="fecha">10-03-2021</td>
+        </tr> -->
+      </tbody>
+    </table>
+</div>
+{% endblock %}

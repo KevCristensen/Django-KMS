@@ -1,0 +1,262 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block styles %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $('#vehiculos').hide();
+      $('#vehiculos2').hide();
+      $('#vehiculos3').hide();
+      $("#enviar").click(function(){
+        $('#vehiculos').show();
+        $('#vehiculos2').hide();
+        $('#vehiculos3').hide();
+
+        var $this = $(this);
+        var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+        if ($(this).html() !== loadingText) {
+          $this.data('original-text', $(this).html());
+          $this.html(loadingText);
+        }
+        setTimeout(function() {
+          $this.html($this.data('original-text'));
+        }, 200);
+
+        var marca = $("#marca").val();
+        var url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${marca}?format=json`;
+        $('#vehiculos tbody').empty();
+        $.get(url,function(data){
+          $.each(data.Results,function(i,item){
+            $("#vehiculos").append(`<tr id="filaVehiculos"> <td class="id"> ${item.Make_ID}</td> <td class="nombre_marca">${item.Make_Name}</td> <td class="id_modelo">${item.Model_ID}</td> <td class="nombre_modelo">${item.Model_Name}</td></tr>`)						
+            $("input:checkbox:not(:checked)").each(function() {
+              var column = "table ." + $(this).attr("name");
+              $(column).hide();
+            });
+          })
+        })
+
+    })
+
+    $("#enviar2").click(function(){
+      $('#vehiculos').hide();
+      $('#vehiculos2').show();
+      $('#vehiculos3').hide();
+
+      var $this = $(this);
+      var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+      if ($(this).html() !== loadingText) {
+          $this.data('original-text', $(this).html());
+          $this.html(loadingText);
+      }
+      setTimeout(function() {
+          $this.html($this.data('original-text'));
+      }, 200);
+
+      var marca2 = $("#marca2").val();
+      var url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmanufacturerdetails/${marca2}?format=json`;
+      $('#vehiculos2 tbody').empty();
+              //$("#vehiculos tr").show();
+      $.get(url,function(data){
+                  if (data.Results)
+        $.each(data.Results,function(i,item){
+          $("#vehiculos2").append(`<tr id="filaVehiculos"> <td class="marca">${item.Mfr_CommonName}</td> <td class="direccion">${item.Address}</td> <td class="ciudad">${item.City}</td> <td class="pais">${item.Country}</td> <td class="empresa">${item.Mfr_Name}</td> <td class="provincia">${item.StateProvince}</td></tr>`)						
+          $("input:checkbox:not(:checked)").each(function() {
+            var column = "table ." + $(this).attr("name");
+            $(column).hide();
+          });
+        })
+      })
+    })
+
+    $("#enviar3").click(function(){
+      $('#vehiculos').hide();
+      $('#vehiculos2').hide();
+      $('#vehiculos3').show();
+
+      var $this = $(this);
+      var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+      if ($(this).html() !== loadingText) {
+          $this.data('original-text', $(this).html());
+          $this.html(loadingText);
+      }
+      setTimeout(function() {
+          $this.html($this.data('original-text'));
+      }, 200);
+
+
+      var marca3 = $("#marca3").val();
+      var url = `https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMake/${marca3}?format=json`;
+      $('#vehiculos3 tbody').empty();
+              //$("#vehiculos tr").remove();
+      $.get(url,function(data){
+        $.each(data.Results,function(i,item){
+          $("#vehiculos3").append(`<tr id="filaVehiculos"> <td class="marca">${item.MakeName}</td> <td class="tipo">${item.VehicleTypeName}</td> <td class="id2">${item.VehicleTypeId} </td></tr>`)						
+          $("input:checkbox:not(:checked)").each(function() {
+            var column = "table ." + $(this).attr("name");
+            $(column).hide();
+          });
+        })
+              })
+          })
+
+    $("input:checkbox:not(:checked)").each(function() {
+      var column = "table ." + $(this).attr("name");
+      $(column).hide();
+    });
+
+    $("input:checkbox").click(function(){
+        var column = "table ." + $(this).attr("name");
+        $(column).toggle();
+    });
+
+
+  })
+
+</script>
+{% endblock %}
+
+{% block content%}
+
+    <div class="container">
+        <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Modelos de vehículo por marca
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>Esto devuelve todos los modelos de vehículos de la marca.</strong> Las modernas fábricas se han adaptado a procesos de producción cada vez más complejos. Es posible que las marcas nos ofrezcan más de lo que necesitamos, de hecho hay modelos con unas ventas realmente residuales. Pero todo suma y el potencial de estas grandes empresas les permite aceptar el desafío.
+                <input type="text" min="1" max="898" class="form-control mb-2" id="marca" placeholder="Ingresa la marca del vehículo">
+                <button type="button" class="btn btn-primary" id="enviar">Buscar vehículos!</button>
+                <p>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="id" type="checkbox" id="flexSwitchCheckChecked" >
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Id_Marca</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="nombre_marca" type="checkbox" id="flexSwitchCheckChecked2" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked2">Marca</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="id_modelo" type="checkbox" id="flexSwitchCheckChecked3" >
+                    <label class="form-check-label" for="flexSwitchCheckChecked3">Id_Modelo</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="nombre_modelo" type="checkbox" id="flexSwitchCheckChecked4" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked4">Nombre_del_Modelo</label>
+                </div>
+                </p>
+                <table class="table" id="vehiculos">
+                <thead class="table-dark">
+                    <tr>
+                    <th scope="col" class="id">Id_del_Modelo_Make_ID</th>
+                    <th scope="col" class="nombre_marca">Nombre de la Marca</th>
+                    <th scope="col" class="id_modelo">Id del Modelo Model_ID</th>
+                    <th scope="col" class="nombre_modelo">Nombre del Modelo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Datos del fabricante por marca
+            </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>Esto proporciona los detalles de un fabricante específico que se solicita.</strong> Es el lugar donde se produce de manera industrial y sistemática automóviles de distintos modelos y propósitos con el fin de invadir el mercado local y mundial, con una completa infraestructura mecánica y tecnológica. Para que dichos establecimientos funcionen se debe tener un capital humano calificado y por supuesto un capital financiero considerablemente elevado, sin embargo, es importante recalcar que existen pequeñas fábricas donde se fabrican coches de manera manual y artesanal, las cuales se han venido posicionando a través de los años dando pasos importantes en relación a su crecimiento.
+                <input type="text" min="1" max="898" class="form-control mb-2" id="marca2" placeholder="Ingresa la marca del vehículo">
+                <button type="button" class="btn btn-primary" id="enviar2">Buscar vehículos!</button>
+                <p>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="marca" type="checkbox" id="flexSwitchCheckCheckedd" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd">Marca</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="direccion" type="checkbox" id="flexSwitchCheckCheckedd2" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd2">Direccion</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="ciudad" type="checkbox" id="flexSwitchCheckCheckedd3" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd3">Ciudad</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="pais" type="checkbox" id="flexSwitchCheckCheckedd4" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd4">País</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="empresa" type="checkbox" id="flexSwitchCheckCheckedd5" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd5">Empresa</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="provincia" type="checkbox" id="flexSwitchCheckCheckedd6" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedd6">Provincia</label>
+                </div>
+                </p>
+                <table class="table" id="vehiculos2">
+                <thead class="table-dark">
+                    <tr>
+                    <th scope="col" class="marca">Marca</th>
+                    <th scope="col" class="direccion">Dirección</th>
+                    <th scope="col" class="ciudad">Ciudad</th>
+                    <th scope="col" class="pais">País</th>
+                    <th scope="col" class="empresa">Nombre de la empresa</th>
+                                <th scope="col" class="provincia">Provincia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                </table>    
+            </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tipos de vehículo por marca
+            </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>Esto devuelve todos los tipos de vehículos de una marca.</strong> La clasificación de automóviles es un término general que se refiere a la manera de agrupar vehículos en categorías según sus características técnicas y comerciales.
+                <input type="text" min="1" max="898" class="form-control mb-2" id="marca3" placeholder="Ingresa la marca del vehículo">
+                <button type="button" class="btn btn-primary" id="enviar3">Buscar vehículos!</button>
+                <p>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="marca" type="checkbox" id="flexSwitchCheckCheckeddd" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckeddd">Marca</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="tipo" type="checkbox" id="flexSwitchCheckCheckeddd2" checked>
+                    <label class="form-check-label" for="flexSwitchCheckCheckeddd2">Direccion</label>
+                </div>
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input" name="id2" type="checkbox" id="flexSwitchCheckCheckeddd3">
+                    <label class="form-check-label" for="flexSwitchCheckCheckeddd3">ID_Vehiculo</label>
+                </div>
+                </p>
+                <table class="table" id="vehiculos3">
+                <thead class="table-dark">
+                    <tr>
+                    <th scope="col" class="marca">Marca</th>
+                    <th scope="col" class="tipo">Tipo de vehiculo</th>
+                    <th scope="col" class="id2">ID del vehiculo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

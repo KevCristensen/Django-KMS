@@ -1,0 +1,118 @@
+<main>
+  <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for car in listaCarousel %}
+        {% if car.idFoto == 0 %}
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{car.idFoto}}" class="active" aria-current="true" aria-label="{{car.slideCarousel}}"></button>
+
+        {% else %}
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{car.idFoto}}" aria-label="{{car.slideCarousel}}"></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for car in listaCarousel %}
+        {% if car.idFoto == 0 %}
+
+          <div class="carousel-item active">
+            <img src="{{car.linkFoto}}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+
+            </div>
+          </div>
+        {% else %}
+          <div class="carousel-item">
+            <img src="{{car.linkFoto}}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+          </div>
+        {% endif %}
+        
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</main>
+
+
+
+
+<!-- 
+
+<main>
+    <div id="carousel" class="carousel carousel-white slide" data-bs-ride="carousel">
+      {% for car in listaCarousel %}
+        <div class="carousel-indicators">
+        {% if car.idFoto == 0 %}
+          <button type="button" data-bs-target="#carousel" data-bs-slide-to="{{car.idFoto}}" class="active" aria-current="true" aria-label="{{car.slideCarousel}}"></button>
+        {% else %}
+          <button type="button" data-bs-target="#carousel" data-bs-slide-to="{{car.idFoto}}" aria-label="{{car.slideCarousel}}"></button>
+        {% endif %}
+        
+        </div>
+      {% endfor %}
+      <div class="carousel-inner">
+      {% for car in listaCarousel %}
+
+        {% if car.idFoto == 0 %}
+        <div class="carousel-item active" data-bs-interval="10000">
+          <img src="{{car.linkFoto}}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+
+            <p><a class="btn btn-lg btn-primary" href="#" data-bs-target="#trabajo{{car.idFoto}}" data-bs-toggle="modal">Ver trabajo</a></p>
+          </div>
+        </div>
+        {% else %}
+        <div class="carousel-item" >
+          <img src="{{car.linkFoto}}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+
+            <p><a class="btn btn-lg btn-primary" href="#" data-bs-target="#trabajo{{car.idFoto}}" data-bs-toggle="modal">Ver trabajo</a></p>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> -->
+
+
+
+
+
+<!--  
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="https://learnnow.com.co/wp-content/uploads/2020/10/tec-mec-auto.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <p><a class="btn btn-lg btn-primary" href="#" data-bs-target="#trabajo2" data-bs-toggle="modal">Ver trabajo</a></p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://static.motor.es/fotos-noticias/2020/09/p_empieza-crear-taller-mecanico-reparar-tu-coche-202071277-1600945966_1.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <p><a class="btn btn-lg btn-primary" href="#" data-bs-target="#trabajo3" data-bs-toggle="modal">Ver trabajo</a></p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> -->
